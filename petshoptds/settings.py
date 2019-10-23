@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'frente_de_caixa'
+    'financeiro_estoque',
+    'frente_de_caixa',
+    'agenda',
 ]
 
 MIDDLEWARE = [
