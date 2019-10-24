@@ -74,13 +74,17 @@ class ProdutoAbstrato(models.Model):
     status = models.BooleanField()
     valor_venda = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return self.descricao
+
 
 class Produto(ProdutoAbstrato):
     valor_compra = models.DecimalField(max_digits=5, decimal_places=2)
+    valor_venda = models.DecimalField(max_digits=5, decimal_places=2)
     codigo_barras = models.CharField(max_length=255, blank=False, null=False)
     quantidade_estoque = models.IntegerField()
     unidade_medida = models.CharField(max_length=5,
-                                      choices=[('kg', 'Kg'), ('un', 'Un')],
+                                      choices=[('kg', 'Kg'), ('un', 'Un'), ('pct', 'Pct')],
                                       default='Un')
 
 
