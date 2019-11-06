@@ -35,8 +35,8 @@ class Cliente(Pessoa):
 
 
 class Fornecedor(Pessoa):
-    nome_fantasia = models.CharField(max_length=255, blank=False, null=False)
-    cnpj = models.CharField(max_length=14, blank=False, null=False)
+    nome_fantasia = models.CharField(max_length=255, blank=True, null=True)
+    cnpj = models.CharField(max_length=14, blank=True, null=True)
 
 
 class Endereco(models.Model):
@@ -71,21 +71,19 @@ class ProdutoAbstrato(models.Model):
         abstract = True
 
     descricao = models.CharField(max_length=255, blank=False, null=False)
-    status = models.BooleanField()
-    valor_venda = models.DecimalField(max_digits=5, decimal_places=2)
+    status = models.BooleanField(null=True)
+    valor_venda = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     def __str__(self):
         return self.descricao
 
 
 class Produto(ProdutoAbstrato):
-    valor_compra = models.DecimalField(max_digits=5, decimal_places=2)
-    valor_venda = models.DecimalField(max_digits=5, decimal_places=2)
-    codigo_barras = models.CharField(max_length=255, blank=False, null=False)
-    quantidade_estoque = models.IntegerField()
+    valor_compra = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    codigo_barras = models.CharField(max_length=255, blank=False, null=True)
     unidade_medida = models.CharField(max_length=5,
                                       choices=[('kg', 'Kg'), ('un', 'Un'), ('pct', 'Pct')],
-                                      default='Un')
+                                      default='Un', null=True)
 
 
 class Servico(ProdutoAbstrato):
@@ -109,12 +107,12 @@ class Raca(models.Model):
 
 class Animal(models.Model):
     nome = models.CharField(max_length=255)
-    cor = models.CharField(max_length=50)
-    data_nascimento = models.DateField()
+    cor = models.CharField(max_length=50, null=True)
+    data_nascimento = models.DateField(null=True)
     raca = models.ForeignKey(Raca, on_delete=models.CASCADE)
     dono = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     sexo = models.CharField(max_length=5,
-                            choices=[('M', 'Macho'), ('F', 'Fêmea')])
+                            choices=[('M', 'Macho'), ('F', 'Fêmea')], null=True)
 
     def idade(self):
         return datetime.now().date().year - self.data_nascimento.year
