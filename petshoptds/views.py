@@ -3,7 +3,10 @@ from django.shortcuts import render
 from core.models import Animal
 
 def home(request):
-    context = { 'nome': 'Yuri', 'idade': 16 }
+    animais = Animal.objects.all()
+    context = { 
+               'qntAnimais' : len(animais)
+                }
     return render(request, 'index.html', context=context)
 
 def animais(request):
